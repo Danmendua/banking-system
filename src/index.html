@@ -1,0 +1,86 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exemplo de Rotas</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid #ddd;
+        }
+
+        th,
+        td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        pre {
+            background-color: #f0f0f0;
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <p>Olá, caro usuário! Este é um exemplo de rotas para serem testadas:</p>
+        <table>
+            <tr>
+                <th>Rota</th>
+                <th>Descrição</th>
+            </tr>
+            <tr>
+                <td><a href="/usuario">/usuario</a></td>
+                <td>Rota para usuários</td>
+            </tr>
+            <tr>
+                <td><a href="/join">/join</a></td>
+                <td>Rota de junção</td>
+            </tr>
+            <tr>
+                <td><a href="/teste/1">/teste/1</a></td>
+                <td>Rota de teste com parâmetro</td>
+            </tr>
+        </table>
+        <p>JSON Body:</p>
+        <pre>
+      {
+        "nome": "Conta teste",
+        "email": "teste@email.com",
+        "senha": "123"
+      }
+    </pre>
+    </div>
+</body>
+
+</html>
