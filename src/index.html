@@ -4,10 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
     <title>Teste de API Bancária</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.css" />
+    <link rel="stylesheet" href="/style.css">
     <style>
-        body {
+        /* body {
             margin: 0;
             padding: 0;
             font-family: 'Arial', sans-serif;
@@ -59,7 +60,7 @@
 
         th {
             background-color: #ddd;
-        }
+        } */
 
         .active-route {
             color: green;
@@ -126,9 +127,7 @@
             padding: 0px;
             text-align: right;
             writing-mode: vertical-rl;
-            /* Adiciona o modo de escrita vertical */
             transform: rotate(360deg);
-            /* Inverte a orientação vertical */
         }
 
         .vertical-text p {
@@ -140,10 +139,15 @@
 </head>
 
 <body>
-    <div class="container">
+    <div class="header">
         <h1>Hello World!</h1>
         <p>Esse é um teste de API de um sistema bancário.</p>
+    </div>
+    <div class="header2">
         <p><strong>Possíveis rotas e rotas em desenvolvimento:</strong></p>
+    </div>
+
+    <div class="container">
 
         <table>
             <thead>
@@ -179,7 +183,7 @@
                 </tr>
                 <tr>
                     <td class="post-method">POST</td>
-                    <td class="route-link" onclick="window.location.href='http://localhost:3000/login'">/login</td>
+                    <td class="route-link" onclick="window.location.href='/login'">/login</td>
                     <td>Rota para login de usuários</td>
                     <td class="json-body">
                         <div class="code-container" style="padding: 10px; margin: 10px;">
@@ -247,7 +251,7 @@
             </tbody>
         </table>
     </div>
-    <div class="vertical-text" style="position: fixed; bottom: 700px; right: 450px; padding: 0px; text-align: right;">
+    <div class="vertical-text" style="position: fixed; bottom: 450px; right: 530px; padding: 0px; text-align: right;">
         <p style="font-size: 12px; color: rgb(0, 0, 0); margin: 0;">Desenvolvido por: <a
                 href="https://github.com/Danmendua/" target="_blank" style="color: rgb(0, 0, 0);">Daniel</a></p>
     </div>
