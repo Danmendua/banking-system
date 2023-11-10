@@ -62,9 +62,9 @@
             background-color: #ddd;
         } */
 
-        .active-route {
+        /* .active-route {
             color: green;
-        }
+        } */
 
         .post-method {
             background-color: #61b9da;
@@ -104,8 +104,10 @@
             padding: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
             overflow-x: auto;
-            max-height: 100px;
+            max-height: auto;
             position: relative;
+            max-width: 200px;
+            width: 100%;
         }
 
         .copy-code-button {
@@ -113,27 +115,11 @@
             top: 5px;
             right: 5px;
             padding: 5px;
-            background-color: #4c91af;
             color: white;
             border: none;
             border-radius: 5px;
             cursor: pointer;
-        }
-
-        .vertical-text {
-            position: fixed;
-            bottom: 925px;
-            right: 520px;
-            padding: 0px;
-            text-align: right;
-            writing-mode: vertical-rl;
-            transform: rotate(360deg);
-        }
-
-        .vertical-text p {
-            font-size: 12px;
-            color: rgb(0, 0, 0);
-            margin: 0;
+            background: linear-gradient(to bottom, #4caf5b, #0e4d0e);
         }
     </style>
 </head>
@@ -161,9 +147,9 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
+                <tr> <!-- POST CRIAR CONTA USUARIO -->
                     <td class="post-method">POST</td>
-                    <td class="route-link" onclick="window.location.href='/usuario'">/usuario</td>
+                    <td onclick="window.location.href='/usuario'"><span class="route-link">/usuario</span></td>
                     <td>Rota para cadastro de usuários</td>
                     <td class="json-body">
                         <div class="code-container" style="padding: 20px; margin: 5px;">
@@ -181,12 +167,14 @@
                     <td class="active-route"></td><!-- autentificador -->
                     <td class="active-route">✔️</td><!-- rota ativa -->
                 </tr>
-                <tr>
+
+
+                <tr> <!-- POST LOGIN USUARIO-->
                     <td class="post-method">POST</td>
-                    <td class="route-link" onclick="window.location.href='/login'">/login</td>
+                    <td onclick="window.location.href='/login'"><span class="route-link">/login</span></td>
                     <td>Rota para login de usuários</td>
                     <td class="json-body">
-                        <div class="code-container" style="padding: 10px; margin: 10px;">
+                        <div class="code-container" style="padding: 18px; margin: 10px;">
                             <pre style="margin: 0; text-align: left;">
 <code id="jsonCodeLoginUser">{
 "email": "teste@email.com",
@@ -194,15 +182,17 @@
 }</code>
                         </pre>
                             <button class="copy-code-button" data-clipboard-target="#jsonCodeLoginUser"
-                                style="position: absolute; top: 65px; right: 5px;">Copiar Código</button>
+                                style="position: absolute; top: 80px; right: 5px;">Copiar Código</button>
                         </div>
                     </td>
                     <td class="active-route"></td><!-- autentificador -->
                     <td class="active-route">❌</td><!-- rota ativa -->
                 </tr>
-                <tr>
+
+
+                <tr> <!-- GET OBTER USUARIO -->
                     <td class="get-method">GET</td>
-                    <td class="route-link" onclick="window.location.href='/usuario'">/usuario</td>
+                    <td onclick="window.location.href='/usuario'"><span class="route-link">/usuario</span></td>
                     <td>Rota para listagem de usuários</td>
                     <td class="json-body">
                         <div class="code-container" style="padding: 20px; margin: 5px;">
@@ -214,9 +204,11 @@
                     <td class="active-route">🔑</td><!-- autentificador -->
                     <td class="active-route">❌</td><!-- rota ativa -->
                 </tr>
-                <tr>
+
+
+                <tr> <!-- PUT UPDATE USUARIO -->
                     <td class="put-method">PUT</td>
-                    <td class="route-link" onclick="window.location.href='/usuario'">/usuario</td>
+                    <td onclick="window.location.href='/usuario'"><span class="route-link">/usuario</span></td>
                     <td>Rota para update de usuários</td>
                     <td class="json-body">
                         <div class="code-container" style="padding: 20px; margin: 5px;">
@@ -234,14 +226,133 @@
                     <td class="active-route">🔑</td><!-- autentificador -->
                     <td class="active-route">❌</td><!-- rota ativa -->
                 </tr>
-                <tr>
-                    <td class="get-method">PUT</td>
-                    <td class="route-link" onclick="window.location.href='/categoria'">/categoria</td>
+
+
+                <tr> <!-- GET LISTAR TODAS CATEGORIAS -->
+                    <td class="get-method">GET</td>
+                    <td onclick="window.location.href='/categoria'"><span class="route-link">/categoria</span></td>
                     <td>Rota de listagem de categorias</td>
                     <td class="json-body">
                         <div class="code-container" style="padding: 20px; margin: 5px;">
                             <pre style="margin: 0; text-align: left;">
-<code id="jsonCodePutCategoria">No boydy request</code>
+<code id="jsonCodeNULL">No boydy request</code>
+                        </pre>
+                        </div>
+                    </td>
+                    <td class="active-route">🔑</td><!-- autentificador -->
+                    <td class="active-route">❌</td><!-- rota ativa -->
+                </tr>
+
+
+                <tr> <!-- GET LISTAR TRANSAÇÕES -->
+                    <td class="get-method">GET</td>
+                    <td onclick="window.location.href='/transacao'"><span class="route-link">/transacao</span></td>
+                    <td>Rota de listagem de transações</td>
+                    <td class="json-body">
+                        <div class="code-container" style="padding: 20px; margin: 5px;">
+                            <pre style="margin: 0; text-align: left;">
+<code id="jsonCodeGetTransacao">/transacao?filtro[]=vendas
+&filtro[]=saúde
+&filtro[]=alimentos</code>
+                        </pre>
+                            <button class="copy-code-button" data-clipboard-target="#jsonCodeGetTransacao"
+                                style="position: absolute; top: 70px; right: 5px;">Copiar Código</button>
+                        </div>
+                    </td>
+                    <td class="active-route">🔑</td><!-- autentificador -->
+                    <td class="active-route">❌</td><!-- rota ativa -->
+                </tr>
+
+
+                <tr> <!-- GET LISTAR TRANSAÇÃO POR ID -->
+                    <td class="get-method">GET</td>
+                    <td onclick="window.location.href='/transacao/1'"><span class="route-link">/transacao/:id</span>
+                    </td>
+                    <td>Rota de listagem de transações por id</td>
+                    <td class="json-body">
+                        <div class="code-container" style="padding: 20px; margin: 5px;">
+                            <pre style="margin: 0; text-align: left;">
+<code id="jsonCodeNULL">No boydy request</code>
+                        </pre>
+                        </div>
+                    </td>
+                    <td class="active-route">🔑</td><!-- autentificador -->
+                    <td class="active-route">❌</td><!-- rota ativa -->
+                </tr>
+
+                <tr> <!-- GET CADASTRAR TRANSAÇÃO -->
+                    <td class="post-method">POST</td>
+                    <td onclick="window.location.href='/transacao'"><span class="route-link">/transacao</span>
+                    </td>
+                    <td>Rota de cadastrar transações</td>
+                    <td class="json-body">
+                        <div class="code-container" style="padding: 20px; margin: 5px;">
+                            <pre style="margin: 0; text-align: left;">
+<code id="jsonCodeGetCadTransacao">{
+"tipo": "entrada",
+"descricao": "Teste 1",
+"valor": 150000,
+"data": "2022-03-24T15:30:00.000Z",
+"categoria_id": 1
+}</code>
+                        </pre>
+                            <button class="copy-code-button" data-clipboard-target="#jsonCodeGetCadTransacao"
+                                style="position: absolute; top: 130px; right: 5px;">Copiar Código</button>
+                        </div>
+                    </td>
+                    <td class="active-route">🔑</td><!-- autentificador -->
+                    <td class="active-route">❌</td><!-- rota ativa -->
+                </tr>
+
+
+                <tr> <!-- PUT UPDATE TRANSAÇÃO -->
+                    <td class="put-method">PUT</td>
+                    <td onclick="window.location.href='transacao/1'"><span class="route-link">/transacao/:id</span></td>
+                    <td>Rota para update de tranasções</td>
+                    <td class="json-body">
+                        <div class="code-container" style="padding: 20px; margin: 5px;">
+                            <pre style="margin: 0; text-align: left;">
+<code id="jsonCodePutUpdateTransacao">{
+"descricao": "Teste 2",
+"valor": 15800,
+"data": "2022-03-23 12:35:00",
+"categoria_id": 2,
+"tipo": "saida"
+}</code>
+                        </pre>
+                            <button class="copy-code-button" data-clipboard-target="#jsonCodePutUpdateTransacao"
+                                style="position: absolute; top: 130px; right: 5px;">Copiar Código</button>
+                        </div>
+                    </td>
+                    <td class="active-route">🔑</td><!-- autentificador -->
+                    <td class="active-route">❌</td><!-- rota ativa -->
+                </tr>
+
+
+                <tr> <!-- DEL TRANSAÇÃO -->
+                    <td class="delete-method">DEL</td>
+                    <td onclick="window.location.href='transacao/1'"><span class="route-link">/transacao/:id</span></td>
+                    <td>Rota para deletar tranasções</td>
+                    <td class="json-body">
+                        <div class="code-container" style="padding: 20px; margin: 5px;">
+                            <pre style="margin: 0; text-align: left;">
+<code id="jsonCodeNULL">no body request</code>
+                        </pre>
+                        </div>
+                    </td>
+                    <td class="active-route">🔑</td><!-- autentificador -->
+                    <td class="active-route">❌</td><!-- rota ativa -->
+                </tr>
+
+                <tr> <!-- GET EXTRATO TRANSAÇÕES -->
+                    <td class="get-method">GET</td>
+                    <td onclick="window.location.href='/transacao'"><span class="route-link">/transacao/extrato</span>
+                    </td>
+                    <td>Rota de extrato total do usuario</td>
+                    <td class="json-body">
+                        <div class="code-container" style="padding: 20px; margin: 5px;">
+                            <pre style="margin: 0; text-align: left;">
+<code id="jsonCodeNULL">no body request</code>
                         </pre>
                         </div>
                     </td>
@@ -251,9 +362,8 @@
             </tbody>
         </table>
     </div>
-    <div class="vertical-text" style="position: fixed; bottom: 450px; right: 530px; padding: 0px; text-align: right;">
-        <p style="font-size: 12px; color: rgb(0, 0, 0); margin: 0;">Desenvolvido por: <a
-                href="https://github.com/Danmendua/" target="_blank" style="color: rgb(0, 0, 0);">Daniel</a></p>
+    <div class="text">
+        <p>Desenvolvido por: <a href="https://github.com/Danmendua/" target="_blank">Daniel</a></p>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
