@@ -8,34 +8,37 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.css" />
     <style>
         body {
-            font-family: 'Arial', sans-serif;
-            background-color: rgb(222, 222, 222);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
             margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to bottom right, rgba(55, 91, 110, 1), rgb(255, 255, 255));
+            height: 120vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
 
         .container {
-            background-color: #3d3937;
+            background: rgba(255, 255, 255, 0.4);
             padding: 20px;
-            border-radius: 10px;
+            border-radius: 20px;
             text-align: center;
             box-shadow: 0 0 10px rgba(1, 1, 1, 0.7);
             position: absolute;
-            top: 20px;
+            top: 50px;
             left: 50%;
             transform: translateX(-50%);
+            height: 100vh;
         }
 
         h1 {
-            color: #f0f0f0;
-            text-shadow: 0 0 10px rgba(1, 1, 1, 1);
+            color: #000000;
+            text-shadow: 0 0 10px rgba(1, 1, 1, 0.3);
         }
 
         p {
-            color: #b6b6b6;
+            color: #000000;
         }
 
         table {
@@ -63,19 +66,23 @@
         }
 
         .post-method {
-            background-color: #547a88;
+            background-color: #61b9da;
+            text-shadow: 0 0 10px rgba(1, 1, 1, 0.1);
         }
 
         .get-method {
-            background-color: #98FB98;
+            background-color: #5dda5d;
+            text-shadow: 0 0 10px rgba(1, 1, 1, 0.1);
         }
 
         .put-method {
-            background-color: #FFD700;
+            background-color: #e1cd5c;
+            text-shadow: 0 0 10px rgba(1, 1, 1, 0.1);
         }
 
         .delete-method {
             background-color: #FF6347;
+            text-shadow: 0 0 10px rgba(1, 1, 1, 0.1);
         }
 
         .route-link {
@@ -111,6 +118,24 @@
             border-radius: 5px;
             cursor: pointer;
         }
+
+        .vertical-text {
+            position: fixed;
+            bottom: 925px;
+            right: 520px;
+            padding: 0px;
+            text-align: right;
+            writing-mode: vertical-rl;
+            /* Adiciona o modo de escrita vertical */
+            transform: rotate(360deg);
+            /* Inverte a orientação vertical */
+        }
+
+        .vertical-text p {
+            font-size: 12px;
+            color: rgb(0, 0, 0);
+            margin: 0;
+        }
     </style>
 </head>
 
@@ -127,6 +152,7 @@
                     <th>ROTAS</th>
                     <th>DESCRIÇÃO</th>
                     <th>JSON BODY</th>
+                    <th>BEARER TOKEN</th>
                     <th>ROTA ATIVA</th>
                 </tr>
             </thead>
@@ -138,17 +164,18 @@
                     <td class="json-body">
                         <div class="code-container" style="padding: 20px; margin: 5px;">
                             <pre style="margin: 0; text-align: left;">
-<code id="jsonCode">{
+<code id="jsonCodePostUser">{
 "nome": "Teste de conta",
 "email": "teste@email.com",
 "senha": "123"
 }</code>
                         </pre>
-                            <button class="copy-code-button" data-clipboard-target="#jsonCode"
+                            <button class="copy-code-button" data-clipboard-target="#jsonCodePostUser"
                                 style="position: absolute; top: 100px; right: 5px;">Copiar Código</button>
                         </div>
                     </td>
-                    <td class="active-route">✅</td>
+                    <td class="active-route"></td><!-- autentificador -->
+                    <td class="active-route">✔️</td><!-- rota ativa -->
                 </tr>
                 <tr>
                     <td class="post-method">POST</td>
@@ -157,21 +184,70 @@
                     <td class="json-body">
                         <div class="code-container" style="padding: 10px; margin: 10px;">
                             <pre style="margin: 0; text-align: left;">
-<code id="jsonCodeLogin">{
+<code id="jsonCodeLoginUser">{
 "email": "teste@email.com",
 "senha": "123"
 }</code>
                         </pre>
-                            <button class="copy-code-button" data-clipboard-target="#jsonCodeLogin"
+                            <button class="copy-code-button" data-clipboard-target="#jsonCodeLoginUser"
                                 style="position: absolute; top: 65px; right: 5px;">Copiar Código</button>
                         </div>
                     </td>
-                    <td class="active-route">❌</td>
+                    <td class="active-route"></td><!-- autentificador -->
+                    <td class="active-route">❌</td><!-- rota ativa -->
+                </tr>
+                <tr>
+                    <td class="get-method">GET</td>
+                    <td class="route-link" onclick="window.location.href='/usuario'">/usuario</td>
+                    <td>Rota para listagem de usuários</td>
+                    <td class="json-body">
+                        <div class="code-container" style="padding: 20px; margin: 5px;">
+                            <pre style="margin: 0; text-align: left;">
+<code id="jsonCodeNULL">No boydy request</code>
+                        </pre>
+                        </div>
+                    </td>
+                    <td class="active-route">🔑</td><!-- autentificador -->
+                    <td class="active-route">❌</td><!-- rota ativa -->
+                </tr>
+                <tr>
+                    <td class="put-method">PUT</td>
+                    <td class="route-link" onclick="window.location.href='/usuario'">/usuario</td>
+                    <td>Rota para update de usuários</td>
+                    <td class="json-body">
+                        <div class="code-container" style="padding: 20px; margin: 5px;">
+                            <pre style="margin: 0; text-align: left;">
+<code id="jsonCodePutUser">{
+"nome": "Conta alterada",
+"email": "teste@email.com",
+"senha": "321"
+}</code>
+                        </pre>
+                            <button class="copy-code-button" data-clipboard-target="#jsonCodePutUser"
+                                style="position: absolute; top: 100px; right: 5px;">Copiar Código</button>
+                        </div>
+                    </td>
+                    <td class="active-route">🔑</td><!-- autentificador -->
+                    <td class="active-route">❌</td><!-- rota ativa -->
+                </tr>
+                <tr>
+                    <td class="get-method">PUT</td>
+                    <td class="route-link" onclick="window.location.href='/categoria'">/categoria</td>
+                    <td>Rota de listagem de categorias</td>
+                    <td class="json-body">
+                        <div class="code-container" style="padding: 20px; margin: 5px;">
+                            <pre style="margin: 0; text-align: left;">
+<code id="jsonCodePutCategoria">No boydy request</code>
+                        </pre>
+                        </div>
+                    </td>
+                    <td class="active-route">🔑</td><!-- autentificador -->
+                    <td class="active-route">❌</td><!-- rota ativa -->
                 </tr>
             </tbody>
         </table>
     </div>
-    <div style="position: fixed; bottom: 350px; right: 550px; padding: 0px; text-align: right;">
+    <div class="vertical-text" style="position: fixed; bottom: 700px; right: 450px; padding: 0px; text-align: right;">
         <p style="font-size: 12px; color: rgb(0, 0, 0); margin: 0;">Desenvolvido por: <a
                 href="https://github.com/Danmendua/" target="_blank" style="color: rgb(0, 0, 0);">Daniel</a></p>
     </div>
