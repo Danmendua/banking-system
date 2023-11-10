@@ -1,86 +1,187 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Exemplo de Rotas</title>
+    <title>Teste de API Bancária</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.css" />
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #f5f5f5;
+            background-color: rgb(222, 222, 222);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
         }
 
         .container {
-            max-width: 600px;
-            margin: 50px auto;
+            background-color: #3d3937;
             padding: 20px;
-            background-color: #fff;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 0 10px rgba(1, 1, 1, 0.7);
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        h1 {
+            color: #f0f0f0;
+            text-shadow: 0 0 10px rgba(1, 1, 1, 1);
+        }
+
+        p {
+            color: #b6b6b6;
+        }
+
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background-color: #f0f0f0;
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-        }
-
-        table,
         th,
         td {
             border: 1px solid #ddd;
-        }
-
-        th,
-        td {
             padding: 10px;
-            text-align: left;
+            text-align: center;
         }
 
         th {
-            background-color: #f2f2f2;
+            background-color: #ddd;
         }
 
-        pre {
-            background-color: #f0f0f0;
-            padding: 10px;
+        .active-route {
+            color: green;
+        }
+
+        .post-method {
+            background-color: #547a88;
+        }
+
+        .get-method {
+            background-color: #98FB98;
+        }
+
+        .put-method {
+            background-color: #FFD700;
+        }
+
+        .delete-method {
+            background-color: #FF6347;
+        }
+
+        .route-link {
+            color: #005eff;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
+        .json-body {
+            position: relative;
+        }
+
+        .code-container {
+            background-color: #1e1e1e;
+            color: #d4d4d4;
+            border: 1px solid #666;
             border-radius: 5px;
+            padding: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            overflow-x: auto;
+            max-height: 100px;
+            position: relative;
+        }
+
+        .copy-code-button {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            padding: 5px;
+            background-color: #4c91af;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
         }
     </style>
 </head>
 
 <body>
     <div class="container">
-        <p>Olá, caro usuário! Este é um exemplo de rotas para serem testadas:</p>
+        <h1>Hello World!</h1>
+        <p>Esse é um teste de API de um sistema bancário.</p>
+        <p><strong>Possíveis rotas e rotas em desenvolvimento:</strong></p>
+
         <table>
-            <tr>
-                <th>Rota</th>
-                <th>Descrição</th>
-            </tr>
-            <tr>
-                <td><a href="/usuario">/usuario</a></td>
-                <td>Rota para usuários</td>
-            </tr>
-            <tr>
-                <td><a href="/join">/join</a></td>
-                <td>Rota de junção</td>
-            </tr>
-            <tr>
-                <td><a href="/teste/1">/teste/1</a></td>
-                <td>Rota de teste com parâmetro</td>
-            </tr>
+            <thead>
+                <tr>
+                    <th>MÉTODO</th>
+                    <th>ROTAS</th>
+                    <th>DESCRIÇÃO</th>
+                    <th>JSON BODY</th>
+                    <th>ROTA ATIVA</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="post-method">POST</td>
+                    <td class="route-link" onclick="window.location.href='/usuario'">/usuario</td>
+                    <td>Rota para cadastro de usuários</td>
+                    <td class="json-body">
+                        <div class="code-container" style="padding: 20px; margin: 5px;">
+                            <pre style="margin: 0; text-align: left;">
+<code id="jsonCode">{
+"nome": "Teste de conta",
+"email": "teste@email.com",
+"senha": "123"
+}</code>
+                        </pre>
+                            <button class="copy-code-button" data-clipboard-target="#jsonCode"
+                                style="position: absolute; top: 100px; right: 5px;">Copiar Código</button>
+                        </div>
+                    </td>
+                    <td class="active-route">✅</td>
+                </tr>
+                <tr>
+                    <td class="post-method">POST</td>
+                    <td class="route-link" onclick="window.location.href='http://localhost:3000/login'">/login</td>
+                    <td>Rota para login de usuários</td>
+                    <td class="json-body">
+                        <div class="code-container" style="padding: 10px; margin: 10px;">
+                            <pre style="margin: 0; text-align: left;">
+<code id="jsonCodeLogin">{
+"email": "teste@email.com",
+"senha": "123"
+}</code>
+                        </pre>
+                            <button class="copy-code-button" data-clipboard-target="#jsonCodeLogin"
+                                style="position: absolute; top: 65px; right: 5px;">Copiar Código</button>
+                        </div>
+                    </td>
+                    <td class="active-route">❌</td>
+                </tr>
+            </tbody>
         </table>
-        <p>JSON Body:</p>
-        <pre>
-      {
-        "nome": "Conta teste",
-        "email": "teste@email.com",
-        "senha": "123"
-      }
-    </pre>
     </div>
+    <div style="position: fixed; bottom: 350px; right: 550px; padding: 0px; text-align: right;">
+        <p style="font-size: 12px; color: rgb(0, 0, 0); margin: 0;">Desenvolvido por: <a
+                href="https://github.com/Danmendua/" target="_blank" style="color: rgb(0, 0, 0);">Daniel</a></p>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            new ClipboardJS('.copy-code-button');
+        });
+    </script>
 </body>
 
 </html>
