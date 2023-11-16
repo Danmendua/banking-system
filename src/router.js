@@ -19,8 +19,7 @@ const { getTransactionsByUser,
 
 // middlewares
 const { alredyExist,
-    userNotFound,
-    updateAccountVerify } = require('./middlewares/users')
+    userNotFound } = require('./middlewares/users')
 
 const { validateRequiredFields,
     validateTransactionType,
@@ -28,19 +27,19 @@ const { validateRequiredFields,
     checkCategory } = require('./middlewares/transaction');
 
 // authorization middleware
-const { verifyLogin } = require('./middlewares/authorization');
+const verifyLogin = require('./middlewares/authorization')
 
 // routers
 routers.get('/', (req, res) => {
     res.sendFile(__dirname + '/index.html');
 });
 routers.post('/usuario', alredyExist, createUser);
-routers.post('/login', userNotFound, login);
+routers.post('/login', login);
 
 routers.use(verifyLogin);
 
 routers.get('/usuario', identifyUser)
-routers.put('/usuario', updateAccountVerify, updateUser)
+routers.put('/usuario', updateUser)
 
 routers.get('/categoria', listCategories);
 

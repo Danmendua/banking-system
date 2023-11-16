@@ -31,47 +31,77 @@ const createUser = async (req, res) => {
 };
 
 const login = async (req, res) => {
-    const { email } = req.body;
+    const { email, senha } = req.body;
+
+    if (!email || !senha) {
+        return res.status(404).json('É obrigatório email e senha');
+    }
 
     try {
-        const query = 'SELECT * FROM USUARIOS WHERE email = $1';
-        const user = await pool.query(query, [email]);
+        const usuario = await knex('usuarios').where({ email }).first();
 
-        const token = jwt.sign({ id: user.rows[0].id, nome: user.rows[0].nome }, process.env.PASSWORD, { expiresIn: '8h' });
+        if (!usuario) {
+            return res.status(400).json("O usuario não foi encontrado");
+        }
 
-        const { senha: _, ...loggedInUser } = user.rows[0];
+        const senhaCorreta = await bcrypt.compare(senha, usuario.senha);
 
-        return res.json({ usuario: loggedInUser, token });
+        if (!senhaCorreta) {
+            return res.status(400).json("Email e senha não confere");
+        }
 
-    } catch (erro) {
-        return res.status(500).json({ mensagem: "Erro interno do servidor" });
-    };
-};
+        const token = jwt.sign({ id: usuario.id }, process.env.PASSWORD, { expiresIn: '8h' });
+
+        const { senha: _, ...dadosUsuario } = usuario;
+
+        return res.status(200).json({
+            usuario: dadosUsuario,
+            token
+        });
+    } catch (error) {
+        console.log(error.message)
+        return res.status(400).json(error.message);
+    }
+}
 
 const identifyUser = async (req, res) => {
-    const userId = req.userId;
-    try {
-        const query = 'SELECT * FROM USUARIOS WHERE id = $1';
-        const { rows } = await pool.query(query, [userId]);
-        const { senha: _, ...loggedInUser } = rows[0];
-        return res.json(loggedInUser);
-    } catch (error) {
-        return res.status(401).json({ mensagem: 'Para acessar este recurso um token de autenticação válido deve ser enviado.' })
-    };
+    return res.status(200).json(req.usuario);
 };
 
-
 const updateUser = async (req, res) => {
-    const userId = req.userId;
     const { nome, email, senha } = req.body;
 
     try {
-        const encriptedPassword = await bcrypt.hash(senha, 10);
-        const query = 'UPDATE USUARIOS SET nome = $1, email = $2, senha = $3 WHERE id = $4';
-        await pool.query(query, [nome, email, encriptedPassword, userId]);
-        return res.sendStatus(204);
+        const body = {};
+
+        if (nome) body.nome = nome;
+        if (email) body.email = email;
+        if (senha) body.senha = senha;
+
+        if (email) {
+            if (email !== req.usuario.email) {
+                const quantidadeUsuarios = await knex('usuarios').where({ email });
+
+                if (quantidadeUsuarios.length > 0) {
+                    return res.status(400).json("O email já existe");
+                };
+                console.log(quantidadeUsuarios)
+            };
+        };
+
+        if (senha) {
+            body.senha = await bcrypt.hash(senha, 10);
+        };
+
+        const usuarioAtualizado = await knex('usuarios').where('id', req.usuario.id).update(body).returning('*');
+
+        if (!usuarioAtualizado) {
+            return res.status(400).json("O usuario não foi atualizado");
+        };
+
+        return res.status(200).json('Usuario foi atualizado com sucesso.');
     } catch (error) {
-        return res.status(500).json({ mensagem: "Erro interno do servidor" });
+        return res.status(400).json(error.message);
     };
 };
 
